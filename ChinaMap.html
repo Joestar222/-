@@ -1,0 +1,34 @@
+import pandas as pd
+from pyecharts.charts import Map
+from pyecharts import options as opts
+
+# Notebook显示图例
+from pyecharts.globals import CurrentConfig, NotebookType
+CurrentConfig.NOTEBOOK_TYPE = NotebookType.NTERACT
+# 读取数据
+tu1 = pd.read_excel(r'D:\Ajupyterzuoye\数据可视化\数据可视化图1new.xlsx')
+tu1_list = tu1.values.tolist()
+print(tu1_list)
+map_ = Map()
+map_.add(
+    series_name = '湖经计划招生数',
+    data_pair = tu1_list,
+    maptype = 'china',
+    zoom = 1
+)
+map_.set_global_opts(
+    title_opts = opts.TitleOpts(
+        title = '湖北经济学院2018-2022年平均计划招生数',
+        subtitle = '数据来源：湖北经济学院本科生招生网',
+        pos_right = 'center',
+        pos_top = '5%'
+    ),
+    visualmap_opts = opts.VisualMapOpts(
+        max_ = 3087.4,
+        min_ = 0,
+        range_color = ['#12c2e9','#c471ed','#f64f59']
+    )
+)
+# map_.load_javascript()
+map_.render_notebook()
+# map_.render('图1湖北经济学院2018-2022年平均计划招生数.html')
